@@ -34,18 +34,21 @@ function [C, g] = pickHyperParams_crossVal(X, y, Xval, yval)
       
       fprintf('model %d out of %d\n', i++, totalModels);
       
-      % svm options for C and gamma and also options for quiet mode
-      optionsStr = ["-c " num2str(Ccur) " -g " num2str(gcur) " -q"];
+      % svm options for C and gamma and also options for quiet mode and 
+      %   cache memory size of 5GB
+##      optionsStr = ["-c " num2str(Ccur) " -g " num2str(gcur) " -q"];
+      optionsStr = ["-c " num2str(Ccur) " -g " num2str(gcur) " -q -m 5000"];
       
       % train the current model on the training set
       model = svmtrain(y, X, optionsStr);
       
       % make predictions using the model on the cross validation set
-      [predictedLabel, accuracyCur] = svmpredict(yval, Xval, model);      
+      [predictedLabel, accuracyCur, decisionValues] = svmpredict(yval, Xval, ...
+                                                                  model);      
       
       % add the current accuracy, C value, and gamma value
       %  as a row to accuraciesAndParams matrix
-      accuraciesAndParams = [accuraciesAndParams; [accuracyCur Ccur gcur]];
+      accuraciesAndParams = [accuraciesAndParams; [accuracyCur(1) Ccur gcur]];
       
     endfor
     

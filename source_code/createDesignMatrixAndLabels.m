@@ -14,7 +14,7 @@ function [X, y] = createDesignMatrixAndLabels(emailNames, vocabList)
   y = [];
 
   i = 1;
-  m = length(emailNames)
+  m = length(emailNames);
   
   % for each email name in emailNames, create and add its features to the 
   %   design matrix X

@@ -18,7 +18,7 @@ function vocabList = createVocabList(trainEmailNames, minOccurances)
   tokenStruct = struct;
 
   i = 1;
-  m = length(trainEmailNames)
+  m = length(trainEmailNames);
 
   % iterate over each training email example
   for emNm = trainEmailNames

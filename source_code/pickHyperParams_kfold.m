@@ -32,10 +32,12 @@ function [C, g] = pickHyperParams_kfold(X, y)
       
       fprintf('model %d out of %d\n', i++, totalModels);
       
-      % svm options for C and gamma and also options for quiet mode and 
-      %   k-fold cross validation with k = 10
+      % svm options for C and gamma and also options for quiet mode,
+      %   cache memory size of 5GB, and k-fold cross validation with k = 10
+##      optionsStr = ["-c " num2str(Ccur) " -g " num2str(gcur) ... 
+##                    " -q -v 10"];
       optionsStr = ["-c " num2str(Ccur) " -g " num2str(gcur) ... 
-                    " -q -v 10"];
+                    " -q -v 10 -m 5000"];
      
       % get cross validation accuracy for current model
       accuracyCur = svmtrain(y, X, optionsStr);
